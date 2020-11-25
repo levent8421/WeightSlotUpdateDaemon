@@ -70,6 +70,7 @@
     </dependencies>
 
     <build>
+        <finalName>weight-slot-daemon</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -77,5 +78,21 @@
             </plugin>
         </plugins>
     </build>
-
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <activeProfiles>dev</activeProfiles>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <activeProfiles>release</activeProfiles>
+            </properties>
+        </profile>
+    </profiles>
 </project>
