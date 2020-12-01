@@ -2,11 +2,11 @@ package com.berrontech.weight.update.upgrade;
 
 /**
  * Create By Levent8421
- * Create Time: 2020/11/25 18:29
+ * Create Time: 2020/12/1 20:37
  * Class Name: UpgradeException
  * Author: Levent8421
  * Description:
- * 升级错误
+ * Upgrade Exception
  *
  * @author Levent8421
  */

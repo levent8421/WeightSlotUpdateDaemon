@@ -1,3 +1,6 @@
 spring:
   profiles:
     active: @activeProfiles@
+app:
+  appKey: weight_app_linux
+  downloadTmpDir: D:/tmp/upgrade
