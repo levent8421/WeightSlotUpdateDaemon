@@ -1,2 +1,5 @@
 server:
   port: 5602
+logging:
+  level:
+    com.berrontech: debug

@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.berrontech.weight.update.script.ScriptEngine;
 import com.berrontech.weight.update.script.ScriptEngineException;
 import com.berrontech.weight.update.script.ScriptEngineFactory;
+import com.berrontech.weight.update.upgrade.ScriptTools;
 import com.berrontech.weight.update.upgrade.UpgradeException;
 import com.berrontech.weight.update.upgrade.Upgrader;
 import com.berrontech.weight.update.upgrade.dto.AppVersion;
@@ -38,14 +39,20 @@ public class SimpleUpgrader implements Upgrader {
     private static final String DATA_NAME = "data";
 
     private static final String SCRIPT_LOG = "log";
+    private static final String SCRIPT_TOOLS_NAME = "tools";
+    private static final String WORKSPACE_NAME = "workspace";
 
     private static final String SETUP_SCRIPT_NAME = "setup.groovy";
     private static final String LAST_VERSION_URL = "http://app.berrontech.com/api/open/version/_last?appKey=%s";
-
+    private final ScriptTools scriptTools;
     @Setter
     private String appKey = "weight_app_linux";
     @Setter
     private String downloadTmpDir = "/tmp/upgrade";
+
+    public SimpleUpgrader(ScriptTools scriptTools) {
+        this.scriptTools = scriptTools;
+    }
 
     @Override
     public AppVersion getLastVersion() throws UpgradeException {
@@ -118,6 +125,8 @@ public class SimpleUpgrader implements Upgrader {
         try {
             scriptEngine = ScriptEngineFactory.getScriptEngine(ScriptEngineFactory.GROOVY, unzipPath.getAbsolutePath());
             scriptEngine.putValue(SCRIPT_LOG, log);
+            scriptEngine.putValue(SCRIPT_TOOLS_NAME, scriptTools);
+            scriptEngine.putValue(WORKSPACE_NAME, unzipPath.getAbsolutePath());
         } catch (ScriptEngineException e) {
             throw new UpgradeException("Error on create ScriptEngine!", e);
         }
